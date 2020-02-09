@@ -19,29 +19,30 @@ class NegotiationController{
 
     this._currentOrder = ''
 
+    this._init()
+  }
+
+  _init(){
     ConnectionFactory.getConnection()
       .then(connection => new NegotiationDao(connection))
       .then(dao => dao.listAll())
       .then(negotiations => negotiations
-        .forEach(negotiation => 
+        .forEach(negotiation =>
           this._negotiationList.add(negotiation)
         ))
-
   }
 
   add(event){
     event.preventDefault()
-    ConnectionFactory.getConnection()
-      .then(connection => {
-        new NegotiationDao(connection)
-          .add(this._createNegotiation())
-          .then(() => {
-            this._negotiationList.add(this._createNegotiation())
-            this._message.text = 'Adicionado com sucesso!'
-            this._clearForm()
-          })
+    new NegotiationService().register()
+      .then(msg => {
+        this._message.text = msg
+        this._negotiationList.add(this._createNegotiation())
+        this._clearForm()
       })
-      .catch(error => this._message.text = error)
+      .catch(error => {
+        this._message.text = error
+      })
   }
 
   delete(){
@@ -64,6 +65,11 @@ class NegotiationController{
     ])
       .then(negotiations => {
         negotiations.reduce((flatArr, arr) => flatArr.concat(arr), [])
+        .filter(negotiation => 
+          !this._negotiationList.negotiations.some(
+            negotiationExists => JSON.stringify(negotiation) === JSON.stringify(negotiationExists)
+          )
+        )
         .forEach(negotiation => {
           ConnectionFactory.getConnection()
             .then(connection => new NegotiationDao(connection))

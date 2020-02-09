@@ -18,4 +18,16 @@ class NegotiationService {
         throw new Error('N foi possivel obter as negociacoes da semana')
       })
   }
+
+  register(negotiation){
+    return ConnectionFactory.getConnection()
+      .then(connection => new NegotiationDao(connection))
+        .then(dao => dao.add(negotiation))
+          .then(() => 'Negotiation successfuly added!')
+      .catch(() => {
+        throw new Error('Error when adding negotiation')
+      })
+  }
 }
+
+
