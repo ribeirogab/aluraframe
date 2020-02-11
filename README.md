@@ -1,2 +1,2 @@
-# jscangaceiro
-Advanced JavaScript Courses Alura + Cangaceiro JavaScript Book
+# Cangaceiro JavaScript
+## Uma aventura no sertão da programação
