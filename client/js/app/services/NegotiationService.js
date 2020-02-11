@@ -28,6 +28,22 @@ class NegotiationService {
         throw new Error('Error when adding negotiation')
       })
   }
+
+  list(){
+    return ConnectionFactory.getConnection()
+      .then(connection => new NegotiationDao(connection))
+        .then(dao => dao.listAll())
+  }
+
+  delete(){
+    return ConnectionFactory.getConnection()
+      .then(connection => new NegotiationDao(connection))
+        .then(dao => dao.deleteAll())
+          .then(() => 'Deletado com sucesso!')
+      .catch(() => {
+        throw new Erro('Falha ao deletar!')
+      })
+  }
 }
 
 

@@ -17,24 +17,26 @@ class NegotiationController{
       new MessageView($('#messageView')),
       'text')
 
+    this._service = new NegotiationService()
+
     this._currentOrder = ''
 
     this._init()
   }
 
   _init(){
-    ConnectionFactory.getConnection()
-      .then(connection => new NegotiationDao(connection))
-      .then(dao => dao.listAll())
-      .then(negotiations => negotiations
-        .forEach(negotiation =>
-          this._negotiationList.add(negotiation)
+    this._service
+      .list()
+        .then(negotiations => negotiations
+          .forEach(negotiation =>
+            this._negotiationList.add(negotiation)
         ))
   }
 
   add(event){
     event.preventDefault()
-    new NegotiationService().register()
+    this._service
+      .register(this._createNegotiation())
       .then(msg => {
         this._message.text = msg
         this._negotiationList.add(this._createNegotiation())
@@ -46,9 +48,8 @@ class NegotiationController{
   }
 
   delete(){
-    ConnectionFactory.getConnection()
-    .then(connection => new NegotiationDao(connection))
-    .then(dao => dao.deleteAll())
+    this._service
+    .delete()
     .then(msg => {
       this._message.text = msg
       this._negotiationList.delete()
@@ -56,12 +57,10 @@ class NegotiationController{
   }
 
   import(){
-    const service = new NegotiationService()
-
     Promise.all([
-      service.import('semana'),
-      service.import('anterior'),
-      service.import('retrasada')
+      this._service.import('semana'),
+      this._service.import('anterior'),
+      this._service.import('retrasada')
     ])
       .then(negotiations => {
         negotiations.reduce((flatArr, arr) => flatArr.concat(arr), [])
