@@ -37,4 +37,4 @@ System.register([], function (_export, _context) {
     }
   };
 });
-//# sourceMappingURL=Negotiation.js.map
+//# sourceMappingURL=Trade.js.map

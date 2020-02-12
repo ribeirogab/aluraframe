@@ -12,6 +12,25 @@ System.register([], function (_export, _context) {
       }
 
       _export('ApplicationException', ApplicationException);
+
+      const excepetion = ApplicationException;
+
+      function isApplicationException(err) {
+        return err instanceof excepetion || Object.getPrototypeOf(err) instanceof excepetion;
+      }
+
+      _export('isApplicationException', isApplicationException);
+
+      function getExceptionMessage(err) {
+        if (isApplicationException(err)) {
+          return err.message;
+        } else {
+          console.error(err);
+          return 'Could not perform the operation!';
+        }
+      }
+
+      _export('getExceptionMessage', getExceptionMessage);
     }
   };
 });

@@ -28,4 +28,4 @@ System.register(["../../util/HttpService.js", "./Trade.js"], function (_export, 
     }
   };
 });
-//# sourceMappingURL=NegotiationService.js.map
+//# sourceMappingURL=TradeService.js.map

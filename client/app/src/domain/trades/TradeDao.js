@@ -1,17 +1,17 @@
-import { Negotiation } from "./Negotiation.js";
+import { Trade } from "./Trade.js";
 
-export class NegotiationDao{
+export class TradeDao{
   constructor(connection){
     this._connection = connection
-    this._store = 'negotiations'
+    this._store = 'trades'
   }
 
-  add(negotiation){
+  add(trades){
     return new Promise((resolve, reject) => {
       const request = this._connection
         .transaction([this._store], 'readwrite')
         .objectStore(this._store)
-        .add(negotiation)
+        .add(trades)
 
       request.onsuccess = e => resolve()
 
@@ -29,18 +29,17 @@ export class NegotiationDao{
         .objectStore(this._store)
         .clear()
 
-      request.onsuccess = e => resolve('Successfully deleted!')
+      request.onsuccess = e => resolve()
 
       request.onerror = e => {
-        console.log(e.target.error)
-        reject('Couldn\'t delete!')
+        reject(e.target.error)
       }
     })
   }
 
   listAll(){
     return new Promise((resolve, reject) => {
-      const negotiations = []
+      const trades = []
       const request = this._connection
         .transaction([this._store], 'readwrite')
         .objectStore(this._store)
@@ -49,8 +48,8 @@ export class NegotiationDao{
       request.onsuccess = e => {
         const current = e.target.result
         if(current){
-          negotiations.push(
-            new Negotiation(
+          trades.push(
+            new Trade(
               current.value._date,
               current.value._amount,
               current.value._value,
@@ -58,7 +57,7 @@ export class NegotiationDao{
           )
           current.continue()
         } else {
-          resolve(negotiations)
+          resolve(trades)
         }
       }
 

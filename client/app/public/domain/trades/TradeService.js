@@ -1,12 +1,14 @@
-System.register(["../../util/HttpService.js", "./Trade.js"], function (_export, _context) {
+System.register(["../../util/HttpService.js", "./Trade.js", "../../util/ApplicationException.js"], function (_export, _context) {
   "use strict";
 
-  var HttpService, Trade;
+  var HttpService, Trade, ApplicationException;
   return {
     setters: [function (_utilHttpServiceJs) {
       HttpService = _utilHttpServiceJs.HttpService;
     }, function (_TradeJs) {
       Trade = _TradeJs.Trade;
+    }, function (_utilApplicationExceptionJs) {
+      ApplicationException = _utilApplicationExceptionJs.ApplicationException;
     }],
     execute: function () {
       class TradeService {
@@ -19,7 +21,7 @@ System.register(["../../util/HttpService.js", "./Trade.js"], function (_export, 
             return tradesArr.map(trade => new Trade(new Date(trade.data), trade.quantidade, trade.valor));
           }).catch(error => {
             console.log(error);
-            throw new Error(`N foi possivel obter as negociacoes da semana${week === 'semana' !== -1 ? '' : ` ${week}`}.`);
+            new ApplicationException(`N foi possivel obter as negociacoes da semana${week === 'semana' !== -1 ? '' : ` ${week}`}.`);
           });
         }
       }
@@ -28,4 +30,4 @@ System.register(["../../util/HttpService.js", "./Trade.js"], function (_export, 
     }
   };
 });
-//# sourceMappingURL=NegotiationService.js.map
+//# sourceMappingURL=TradeService.js.map

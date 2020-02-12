@@ -5,7 +5,7 @@ System.register([], function (_export, _context) {
     setters: [],
     execute: function () {
       let connection = null;
-      const stores = ['negotiations'];
+      const stores = ['trades'];
       let close = null;
 
       class ConnectionFactory {

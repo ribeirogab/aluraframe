@@ -1,4 +1,4 @@
-import { currentInstance } from "./controllers/NegotiationController.js";
+import { currentInstance } from "./controllers/TradeController.js";
 
 const negotiationController = currentInstance()
 

@@ -1,4 +1,4 @@
-export class NegotiationList {
+export class TradeList {
   constructor() {
     this._list = []
 
@@ -10,11 +10,11 @@ export class NegotiationList {
   }
 
   get totalVolume() {
-    return this._list.reduce((total, n) => total + n.volume, 0.0);
+    return this._list.reduce((total, trade) => total + trade.volume, 0.0);
   }
 
-  add(negotiation) {
-    this._list.push(negotiation)
+  add(trade) {
+    this._list.push(trade)
   }
 
   delete() {

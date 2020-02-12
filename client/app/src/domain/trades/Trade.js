@@ -1,4 +1,4 @@
-export class Negotiation {
+export class Trade {
   constructor(_date, _amount, _value) {
     this._date = new Date(_date.getTime())
     Object.assign(this, { _amount, _value })
@@ -22,7 +22,7 @@ export class Negotiation {
     return this._value
   }
 
-  equals(negotiation){
-    return JSON.stringify(this) === JSON.stringify(negotiation)
+  equals(trade){
+    return JSON.stringify(this) === JSON.stringify(trade)
   }
 }

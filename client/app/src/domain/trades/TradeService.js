@@ -1,0 +1,25 @@
+import { HttpService } from "../../util/HttpService.js";
+import { Trade } from "./Trade.js";
+import { ApplicationException } from '../../util/ApplicationException.js'
+
+export class TradeService{
+  constructor(){
+    this._http = new HttpService()
+  }
+
+  import(week) {
+    return this._http.get(`negociacoes/${week}`)
+      .then(tradesArr => {
+        return tradesArr.map(trade => 
+          new Trade(
+            new Date(trade.data),
+            trade.quantidade,
+            trade.valor
+          )
+        )
+      }).catch(error => {
+        console.log(error)
+        new ApplicationException(`N foi possivel obter as negociacoes da semana${week === 'semana' !== -1 ? '': ` ${week}`}.`)
+      })
+  }
+}

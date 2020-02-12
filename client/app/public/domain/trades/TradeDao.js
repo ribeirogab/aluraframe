@@ -10,12 +10,12 @@ System.register(['./Trade.js'], function (_export, _context) {
       class TradeDao {
         constructor(connection) {
           this._connection = connection;
-          this._store = 'negotiations';
+          this._store = 'trades';
         }
 
-        add(negotiation) {
+        add(trades) {
           return new Promise((resolve, reject) => {
-            const request = this._connection.transaction([this._store], 'readwrite').objectStore(this._store).add(negotiation);
+            const request = this._connection.transaction([this._store], 'readwrite').objectStore(this._store).add(trades);
 
             request.onsuccess = e => resolve();
 
@@ -40,16 +40,16 @@ System.register(['./Trade.js'], function (_export, _context) {
 
         listAll() {
           return new Promise((resolve, reject) => {
-            const negotiations = [];
+            const trades = [];
             const request = this._connection.transaction([this._store], 'readwrite').objectStore(this._store).openCursor();
 
             request.onsuccess = e => {
               const current = e.target.result;
               if (current) {
-                negotiations.push(new Trade(current.value._date, current.value._amount, current.value._value));
+                trades.push(new Trade(current.value._date, current.value._amount, current.value._value));
                 current.continue();
               } else {
-                resolve(negotiations);
+                resolve(trades);
               }
             };
 
@@ -65,4 +65,4 @@ System.register(['./Trade.js'], function (_export, _context) {
     }
   };
 });
-//# sourceMappingURL=NegotiationDao.js.map
+//# sourceMappingURL=TradeDao.js.map

@@ -1,4 +1,4 @@
-System.register(["./View.js", "../../ui/helpers/DateConverter.js", "../../controllers/NegotiationController.js"], function (_export, _context) {
+System.register(["./View.js", "../../ui/helpers/DateConverter.js", "../../controllers/TradeController.js"], function (_export, _context) {
     "use strict";
 
     var View, DateConverter, currentInstance;
@@ -7,11 +7,11 @@ System.register(["./View.js", "../../ui/helpers/DateConverter.js", "../../contro
             View = _ViewJs.View;
         }, function (_uiHelpersDateConverterJs) {
             DateConverter = _uiHelpersDateConverterJs.DateConverter;
-        }, function (_controllersNegotiationControllerJs) {
-            currentInstance = _controllersNegotiationControllerJs.currentInstance;
+        }, function (_controllersTradeControllerJs) {
+            currentInstance = _controllersTradeControllerJs.currentInstance;
         }],
         execute: function () {
-            class NegotiationsView extends View {
+            class TradesView extends View {
                 constructor(element) {
                     super(element);
 
@@ -33,11 +33,11 @@ System.register(["./View.js", "../../ui/helpers/DateConverter.js", "../../contro
         </thead>
     
         <tbody>
-            ${model.list.map(n => `<tr>
-                <td>${DateConverter.dateToText(n.date)}</td>
-                <td>${n.amount}</td>
-                <td>${n.value}</td>
-                <td>${n.volume}</td>
+            ${model.list.map(trade => `<tr>
+                <td>${DateConverter.dateToText(trade.date)}</td>
+                <td>${trade.amount}</td>
+                <td>${trade.value}</td>
+                <td>${trade.volume}</td>
               </tr>`).join('')}
         </tbody>
     
@@ -52,7 +52,7 @@ System.register(["./View.js", "../../ui/helpers/DateConverter.js", "../../contro
                 }
             }
 
-            _export("NegotiationsView", NegotiationsView);
+            _export("TradesView", TradesView);
         }
     };
 });

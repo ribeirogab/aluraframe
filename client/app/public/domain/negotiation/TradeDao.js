@@ -65,4 +65,4 @@ System.register(['./Trade.js'], function (_export, _context) {
     }
   };
 });
-//# sourceMappingURL=NegotiationDao.js.map
+//# sourceMappingURL=TradeDao.js.map

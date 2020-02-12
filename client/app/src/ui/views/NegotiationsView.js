@@ -1,8 +1,8 @@
 import { View } from "./View.js";
 import { DateConverter } from "../../ui/helpers/DateConverter.js";
-import { currentInstance } from "../../controllers/NegotiationController.js";
+import { currentInstance } from "../../controllers/TradeController.js";
 
-export class NegotiationsView extends View {
+export class TradesView extends View {
   constructor(element) {
     super(element)
 
@@ -25,12 +25,12 @@ export class NegotiationsView extends View {
         </thead>
     
         <tbody>
-            ${model.list.map(n => 
+            ${model.list.map(trade => 
               `<tr>
-                <td>${DateConverter.dateToText(n.date)}</td>
-                <td>${n.amount}</td>
-                <td>${n.value}</td>
-                <td>${n.volume}</td>
+                <td>${DateConverter.dateToText(trade.date)}</td>
+                <td>${trade.amount}</td>
+                <td>${trade.value}</td>
+                <td>${trade.volume}</td>
               </tr>`
             ).join('')}
         </tbody>
