@@ -7,7 +7,7 @@ System.register(['./Trade.js'], function (_export, _context) {
       Trade = _TradeJs.Trade;
     }],
     execute: function () {
-      class TradeDao {
+      let TradeDao = class TradeDao {
         constructor(connection) {
           this._connection = connection;
           this._store = 'trades';
@@ -59,7 +59,7 @@ System.register(['./Trade.js'], function (_export, _context) {
             };
           });
         }
-      }
+      };
 
       _export('TradeDao', TradeDao);
     }

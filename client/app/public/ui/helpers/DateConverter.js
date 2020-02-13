@@ -7,7 +7,7 @@ System.register(["./InvalidDateException.js"], function (_export, _context) {
       InvalidDateException = _InvalidDateExceptionJs.InvalidDateException;
     }],
     execute: function () {
-      class DateConverter {
+      let DateConverter = class DateConverter {
         static textToDate(text) {
           if (!/\d{2}\/\d{2}\/\d{4}$/.test(text)) {
             throw new InvalidDateException();
@@ -18,7 +18,7 @@ System.register(["./InvalidDateException.js"], function (_export, _context) {
         static dateToText(date) {
           return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         }
-      }
+      };
 
       _export("DateConverter", DateConverter);
     }

@@ -7,11 +7,11 @@ System.register(["./ApplicationException.js"], function (_export, _context) {
       ApplicationException = _ApplicationExceptionJs.ApplicationException;
     }],
     execute: function () {
-      class HttpError extends ApplicationException {
+      let HttpError = class HttpError extends ApplicationException {
         constructor() {
           super('http Error');
         }
-      }
+      };
 
       _export("HttpError", HttpError);
     }

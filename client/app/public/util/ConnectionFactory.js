@@ -8,7 +8,7 @@ System.register([], function (_export, _context) {
       const stores = ['trades'];
       let close = null;
 
-      class ConnectionFactory {
+      let ConnectionFactory = class ConnectionFactory {
         constructor() {
           throw new Error('This class cannot be instantiated!');
         }
@@ -54,7 +54,7 @@ System.register([], function (_export, _context) {
             close();
           }
         }
-      }
+      };
 
       _export('ConnectionFactory', ConnectionFactory);
     }

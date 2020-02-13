@@ -4,7 +4,7 @@ System.register([], function (_export, _context) {
   return {
     setters: [],
     execute: function () {
-      class ProxyFactory {
+      let ProxyFactory = class ProxyFactory {
         static create(obj, props, trap) {
           return new Proxy(obj, {
             get(target, prop, receiver) {
@@ -29,7 +29,7 @@ System.register([], function (_export, _context) {
             }
           });
         }
-      }
+      };
 
       _export("ProxyFactory", ProxyFactory);
     }

@@ -1,7 +1,7 @@
 System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], function (_export, _context) {
   "use strict";
 
-  var Trade, TradeList, TradeService, DateConverter, Message, MessageView, TradesView, Bind, getNegotiationDao, getExceptionMessage;
+  var Trade, TradeList, TradeService, DateConverter, Message, MessageView, TradesView, Bind, getNegotiationDao, getExceptionMessage, debounce, controller;
   return {
     setters: [function (_domainIndexJs) {
       Trade = _domainIndexJs.Trade;
@@ -16,6 +16,8 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
       Bind = _utilIndexJs.Bind;
       getNegotiationDao = _utilIndexJs.getNegotiationDao;
       getExceptionMessage = _utilIndexJs.getExceptionMessage;
+      debounce = _utilIndexJs.debounce;
+      controller = _utilIndexJs.controller;
     }],
     execute: function () {
       function _asyncToGenerator(fn) {
@@ -47,13 +49,44 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
         };
       }
 
-      class TradeController {
-        constructor() {
-          const $ = document.querySelector.bind(document);
+      function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+        var desc = {};
+        Object['ke' + 'ys'](descriptor).forEach(function (key) {
+          desc[key] = descriptor[key];
+        });
+        desc.enumerable = !!desc.enumerable;
+        desc.configurable = !!desc.configurable;
 
-          this._inputDate = $('#data');
-          this._inputAmount = $('#quantidade');
-          this._inputValue = $('#valor');
+        if ('value' in desc || desc.initializer) {
+          desc.writable = true;
+        }
+
+        desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+          return decorator(target, property, desc) || desc;
+        }, desc);
+
+        if (context && desc.initializer !== void 0) {
+          desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+          desc.initializer = undefined;
+        }
+
+        if (desc.initializer === void 0) {
+          Object['define' + 'Property'](target, property, desc);
+          desc = null;
+        }
+
+        return desc;
+      }
+
+      var _dec, _dec2, _dec3, _class, _desc, _value, _class2;
+
+      let TradeController = (_dec = controller('#data', '#quantidade', '#valor'), _dec2 = debounce(250), _dec3 = debounce(1000), _dec(_class = (_class2 = class TradeController {
+        constructor(inputDate, inputAmount, inputValue) {
+          this._inputDate = inputDate;
+          this._inputAmount = inputAmount;
+          this._inputValue = inputValue;
+
+          const $ = document.querySelector.bind(document);
 
           this._tradeList = new Bind(new TradeList(), new TradesView($('#tradesView')), 'add', 'delete', 'import', 'order', 'reverse');
 
@@ -88,8 +121,8 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
             try {
               event.preventDefault();
               const dao = yield getNegotiationDao();
-              yield dao.add(_this2._createNegotiation());
-              _this2._tradeList.add(_this2._createNegotiation());
+              yield dao.add(_this2._createTrade());
+              _this2._tradeList.add(_this2._createTrade());
               _this2._message.text = 'Trades successfully added!';
               _this2._resetForm();
               console.log(_this2._tradeList);
@@ -145,7 +178,7 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
           this._currentOrder = column;
         }
 
-        _createNegotiation() {
+        _createTrade() {
           return new Trade(DateConverter.textToDate(this._inputDate.value), parseInt(this._inputAmount.value), parseFloat(this._inputValue.value));
         }
 
@@ -155,12 +188,13 @@ System.register(['../domain/index.js', '../ui/index.js', '../util/index.js'], fu
           this._inputValue.value = 5;
           this._inputDate.focus();
         }
-      }
+      }, (_applyDecoratedDescriptor(_class2.prototype, 'add', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'add'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'import', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'import'), _class2.prototype)), _class2)) || _class);
 
-      const negotiationController = new TradeController();
+
+      const tradeController = new TradeController();
 
       function currentInstance() {
-        return negotiationController;
+        return tradeController;
       }
 
       _export('currentInstance', currentInstance);

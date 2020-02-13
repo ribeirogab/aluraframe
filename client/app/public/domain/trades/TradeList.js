@@ -4,7 +4,7 @@ System.register([], function (_export, _context) {
   return {
     setters: [],
     execute: function () {
-      class TradeList {
+      let TradeList = class TradeList {
         constructor() {
           this._list = [];
 
@@ -34,7 +34,7 @@ System.register([], function (_export, _context) {
         reverse() {
           this._list.reverse();
         }
-      }
+      };
 
       _export("TradeList", TradeList);
     }

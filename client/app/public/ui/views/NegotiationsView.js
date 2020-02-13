@@ -11,7 +11,7 @@ System.register(["./View.js", "../../ui/helpers/DateConverter.js", "../../contro
             currentInstance = _controllersTradeControllerJs.currentInstance;
         }],
         execute: function () {
-            class TradesView extends View {
+            let TradesView = class TradesView extends View {
                 constructor(element) {
                     super(element);
 
@@ -50,7 +50,7 @@ System.register(["./View.js", "../../ui/helpers/DateConverter.js", "../../contro
     </table>
     `;
                 }
-            }
+            };
 
             _export("TradesView", TradesView);
         }

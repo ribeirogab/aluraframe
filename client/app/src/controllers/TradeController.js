@@ -1,15 +1,15 @@
 import { Trade, TradeList, TradeService } from '../domain/index.js'
 import { DateConverter, Message, MessageView, TradesView } from '../ui/index.js'
-import { Bind, getNegotiationDao, getExceptionMessage } from '../util/index.js'
+import { Bind, getNegotiationDao, getExceptionMessage, debounce, controller } from '../util/index.js'
 
-
+@controller('#data', '#quantidade', '#valor')
 class TradeController {
-  constructor(){
-    const $ = document.querySelector.bind(document)
+  constructor(inputDate, inputAmount, inputValue){
+    this._inputDate = inputDate
+    this._inputAmount = inputAmount
+    this._inputValue = inputValue
     
-    this._inputDate = $('#data')
-    this._inputAmount = $('#quantidade')
-    this._inputValue = $('#valor')
+    const $ = document.querySelector.bind(document)
     
     this._tradeList = new Bind(
       new TradeList(),
@@ -41,13 +41,13 @@ class TradeController {
     }
   }
 
-
+  @debounce(250)
   async add(event){
     try {
       event.preventDefault()
       const dao = await getNegotiationDao()
-      await dao.add(this._createNegotiation())
-      this._tradeList.add(this._createNegotiation())
+      await dao.add(this._createTrade())
+      this._tradeList.add(this._createTrade())
       this._message.text = 'Trades successfully added!'
       this._resetForm()
       console.log(this._tradeList)
@@ -67,6 +67,7 @@ class TradeController {
     }
   }
 
+  @debounce(1000)
   async import(){
     try {
       const negotiationsArr = await Promise.all([
@@ -93,7 +94,7 @@ class TradeController {
     this._currentOrder = column;
   }
 
-  _createNegotiation(){
+  _createTrade(){
     return new Trade(
       DateConverter.textToDate(this._inputDate.value),
       parseInt(this._inputAmount.value),
@@ -109,8 +110,8 @@ class TradeController {
   }
 }
 
-const negotiationController = new TradeController
+const tradeController = new TradeController
 
 export function currentInstance(){
-  return negotiationController
+  return tradeController
 }

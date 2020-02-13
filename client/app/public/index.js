@@ -8,15 +8,15 @@ System.register(['./controllers/TradeController.js'], function (_export, _contex
     }],
     execute: function () {
 
-      const negotiationController = currentInstance();
+      const tradeController = currentInstance();
 
       const $ = document.querySelector.bind(document);
 
-      $('.form').addEventListener('submit', negotiationController.add.bind(negotiationController));
+      $('.form').addEventListener('submit', tradeController.add.bind(tradeController));
 
-      $('#btnDelete').addEventListener('click', negotiationController.delete.bind(negotiationController));
+      $('#btnDelete').addEventListener('click', tradeController.delete.bind(tradeController));
 
-      $('#btnImport').addEventListener('click', negotiationController.import.bind(negotiationController));
+      $('#btnImport').addEventListener('click', tradeController.import.bind(tradeController));
     }
   };
 });

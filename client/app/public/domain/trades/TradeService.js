@@ -11,7 +11,7 @@ System.register(["../../util/HttpService.js", "./Trade.js", "../../util/Applicat
       ApplicationException = _utilApplicationExceptionJs.ApplicationException;
     }],
     execute: function () {
-      class TradeService {
+      let TradeService = class TradeService {
         constructor() {
           this._http = new HttpService();
         }
@@ -24,7 +24,7 @@ System.register(["../../util/HttpService.js", "./Trade.js", "../../util/Applicat
             new ApplicationException(`N foi possivel obter as negociacoes da semana${week === 'semana' !== -1 ? '' : ` ${week}`}.`);
           });
         }
-      }
+      };
 
       _export("TradeService", TradeService);
     }

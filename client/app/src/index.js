@@ -1,14 +1,14 @@
 import { currentInstance } from "./controllers/TradeController.js";
 
-const negotiationController = currentInstance()
+const tradeController = currentInstance()
 
 const $ = document.querySelector.bind(document)
 
 $('.form')
-  .addEventListener('submit', negotiationController.add.bind(negotiationController))
+  .addEventListener('submit', tradeController.add.bind(tradeController))
 
 $('#btnDelete')
-  .addEventListener('click', negotiationController.delete.bind(negotiationController))
+  .addEventListener('click', tradeController.delete.bind(tradeController))
 
 $('#btnImport')
-  .addEventListener('click', negotiationController.import.bind(negotiationController))
+  .addEventListener('click', tradeController.import.bind(tradeController))
