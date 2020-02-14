@@ -8,7 +8,7 @@ export class TradeService{
   }
 
   import(week) {
-    return this._http.get(`negociacoes/${week}`)
+    return this._http.get(`http://localhost:3000/negociacoes/${week}`)
       .then(tradesArr => {
         return tradesArr.map(trade => 
           new Trade(

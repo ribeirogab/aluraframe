@@ -1,14 +1,16 @@
 import { currentInstance } from "./controllers/TradeController.js";
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap-theme.css'
+import 'bootstrap/js/modal.js'
+import '../assets/css/mystyle.css'
 
 const tradeController = currentInstance()
 
-const $ = document.querySelector.bind(document)
-
-$('.form')
+document.querySelector('.form')
   .addEventListener('submit', tradeController.add.bind(tradeController))
 
-$('#btnDelete')
+document.querySelector('#btnDelete')
   .addEventListener('click', tradeController.delete.bind(tradeController))
 
-$('#btnImport')
+document.querySelector('#btnImport')
   .addEventListener('click', tradeController.import.bind(tradeController))
