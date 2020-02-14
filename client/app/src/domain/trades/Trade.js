@@ -1,5 +1,7 @@
+import { required } from '../../util/index.js'
+
 export class Trade {
-  constructor(_date, _amount, _value) {
+  constructor(_date=required('date'), _amount=required('amount'), _value=required('value')) {
     this._date = new Date(_date.getTime())
     Object.assign(this, { _amount, _value })
 

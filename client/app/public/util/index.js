@@ -1,4 +1,4 @@
-System.register(['./ApplicationException.js', './Bind.js', './ConnectionFactory.js', './DaoFactory.js', './HttpError.js', './HttpService.js', './ProxyFactory.js', './decorators/Debounce.js', './decorators/Controller.js'], function (_export, _context) {
+System.register(['./ApplicationException.js', './Bind.js', './ConnectionFactory.js', './DaoFactory.js', './HttpError.js', './HttpService.js', './ProxyFactory.js', './Required.js', './decorators/Debounce.js', './decorators/Controller.js'], function (_export, _context) {
   "use strict";
 
   return {
@@ -58,22 +58,30 @@ System.register(['./ApplicationException.js', './Bind.js', './ConnectionFactory.
       }
 
       _export(_exportObj7);
-    }, function (_decoratorsDebounceJs) {
+    }, function (_RequiredJs) {
       var _exportObj8 = {};
 
-      for (var _key8 in _decoratorsDebounceJs) {
-        if (_key8 !== "default" && _key8 !== "__esModule") _exportObj8[_key8] = _decoratorsDebounceJs[_key8];
+      for (var _key8 in _RequiredJs) {
+        if (_key8 !== "default" && _key8 !== "__esModule") _exportObj8[_key8] = _RequiredJs[_key8];
       }
 
       _export(_exportObj8);
-    }, function (_decoratorsControllerJs) {
+    }, function (_decoratorsDebounceJs) {
       var _exportObj9 = {};
 
-      for (var _key9 in _decoratorsControllerJs) {
-        if (_key9 !== "default" && _key9 !== "__esModule") _exportObj9[_key9] = _decoratorsControllerJs[_key9];
+      for (var _key9 in _decoratorsDebounceJs) {
+        if (_key9 !== "default" && _key9 !== "__esModule") _exportObj9[_key9] = _decoratorsDebounceJs[_key9];
       }
 
       _export(_exportObj9);
+    }, function (_decoratorsControllerJs) {
+      var _exportObj10 = {};
+
+      for (var _key10 in _decoratorsControllerJs) {
+        if (_key10 !== "default" && _key10 !== "__esModule") _exportObj10[_key10] = _decoratorsControllerJs[_key10];
+      }
+
+      _export(_exportObj10);
     }],
     execute: function () {}
   };
