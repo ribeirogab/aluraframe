@@ -1,4 +1,4 @@
-import { ApplicationException } from "../../util/ApplicationException.js";
+import { ApplicationException } from "../../util";
 
 export class InvalidDateException extends ApplicationException{
   constructor(){

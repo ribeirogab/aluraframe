@@ -1,33 +1,59 @@
 const path = require('path')
-const babiliPlugin = require('babili-webpack-plugin')
-const extractTextPlugin = require('extract-text-webpack-plugin')
-const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const BabiliPlugin = require('babili-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const cssnano = require('cssnano')
-const { ProvidePlugin } = require('webpack')
+const { ProvidePlugin, optimize } = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const allPlugins = []
+const plugins = []
 
-allPlugins.push(new extractTextPlugin('styles.css'))
+plugins.push(new HtmlWebpackPlugin({
+  hash: true,
+  minify: {
+    html5: true,
+    collapseWhitespace: true,
+    removeComments: true
+  },
+  filename: 'index.html',
+  template: __dirname + '/main.html'
+}))
 
-allPlugins.push(new ProvidePlugin({
+// Plugin para criação de arquivo css único
+plugins.push(new ExtractTextPlugin('styles.css'))
+
+// Importando módulos globais. [ jquery ]
+plugins.push(new ProvidePlugin({
   '$': 'jquery/dist/jquery.js',
   'jQuery': 'jquery/dist/jquery.js'
 }))
 
+// Plugin utilizado para separação do código das bibliotecas em outro bundle.
+plugins.push(new optimize.CommonsChunkPlugin({
+  name: 'vendor',
+  filename: 'vendor.bundle.js'
+}))
+
+// Verificando variável de ambiemte, para assim diferenciar o build de desenvolvimento do de produção
 if (process.env.NODE_ENV == 'production') {
-  allPlugins.push(new babiliPlugin())
-  allPlugins.push(new optimizeCssAssetsPlugin({
+  plugins.push(new optimize.ModuleConcatenationPlugin())
+  plugins.push(new BabiliPlugin())
+  plugins.push(new OptimizeCssAssetsPlugin({
     cssProcessor: cssnano,
-    cssProcessorOptions: { discardComments: { removeAll: true } }
+    cssProcessorOptions: { discardComments: { removeAll: true } },
+    canPrint: true
   }))
 }
 
+// Exportando configurações do webpack
 module.exports = {
-  entry: './app/src/index.js',
+  entry: {
+    app: './app/src/index.js',
+    vendor: ['jquery', 'bootstrap', 'reflect-metadata'] // Módulos que ficarão no arquivo "vendor.bundle.js"
+  },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'app/dist'),
-    publicPath: 'app/dist'
   },
   module: {
     rules: [
@@ -40,7 +66,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: extractTextPlugin.extract({
+        use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: 'css-loader'
         })
@@ -59,5 +85,5 @@ module.exports = {
       }
     ]
   },
-  plugins: allPlugins
+  plugins
 }

@@ -1,4 +1,4 @@
-import { required } from '../../util/index.js'
+import { required } from '../../util'
 
 export class Trade {
   constructor(_date=required('date'), _amount=required('amount'), _value=required('value')) {

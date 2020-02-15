@@ -1,4 +1,3 @@
-export * from './trades/Trade.js'
-export * from './trades/TradeDao.js'
-export * from './trades/TradeList.js'
-export * from './trades/TradeService.js'
+export * from './trades/Trade'
+export * from './trades/TradeDao'
+export * from './trades/TradeList'

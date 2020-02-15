@@ -1,5 +1,5 @@
-import { View } from "./View.js";
-import { DateConverter } from "../../ui/helpers/DateConverter.js";
+import { View } from "./View";
+import { DateConverter } from "../../ui";
 import { currentInstance } from "../../controllers/TradeController.js";
 
 export class TradesView extends View {

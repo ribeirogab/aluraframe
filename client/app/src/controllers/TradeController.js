@@ -1,6 +1,6 @@
-import { Trade, TradeList, TradeService } from '../domain/index.js'
-import { DateConverter, Message, MessageView, TradesView } from '../ui/index.js'
-import { Bind, getNegotiationDao, getExceptionMessage, debounce, controller } from '../util/index.js'
+import { Trade, TradeList } from '../domain'
+import { DateConverter, Message, MessageView, TradesView } from '../ui'
+import { Bind, getNegotiationDao, getExceptionMessage, debounce, controller } from '../util'
 
 @controller('#data', '#quantidade', '#valor')
 class TradeController {
@@ -23,7 +23,6 @@ class TradeController {
       'text'
     )
 
-    this._service = new TradeService()
     this._currentOrder = ''
 
     this._init()
@@ -70,10 +69,12 @@ class TradeController {
   @debounce(1000)
   async import(){
     try {
+      const { TradeService } = await System.import('../domain/trades/TradeService.js')
+      const service = new TradeService()
       const negotiationsArr = await Promise.all([
-          this._service.import('semana'),
-          this._service.import('anterior'),
-          this._service.import('retrasada')
+          service.import('semana'),
+          service.import('anterior'),
+          service.import('retrasada')
         ])
       negotiationsArr
         .reduce((flatArr, arr) => flatArr.concat(arr), [])

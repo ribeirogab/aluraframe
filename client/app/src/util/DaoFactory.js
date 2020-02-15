@@ -1,5 +1,5 @@
-import { ConnectionFactory } from "./ConnectionFactory.js";
-import { TradeDao } from "../domain/trades/TradeDao.js";
+import { ConnectionFactory } from "./ConnectionFactory";
+import { TradeDao } from "../domain";
 
 export async function getNegotiationDao(){
     const connection = await ConnectionFactory.getConnection()
