@@ -3,7 +3,7 @@ const BabiliPlugin = require('babili-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const cssnano = require('cssnano')
-const { ProvidePlugin, optimize } = require('webpack')
+const { ProvidePlugin, optimize, DefinePlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const plugins = []
@@ -34,8 +34,10 @@ plugins.push(new optimize.CommonsChunkPlugin({
   filename: 'vendor.bundle.js'
 }))
 
+let SERVICE_URL = JSON.stringify('http://localhost:3000')
 // Verificando variável de ambiemte, para assim diferenciar o build de desenvolvimento do de produção
 if (process.env.NODE_ENV == 'production') {
+  SERVICE_URL = JSON.stringify('https://apitrades.herokuapp.com')
   plugins.push(new optimize.ModuleConcatenationPlugin())
   plugins.push(new BabiliPlugin())
   plugins.push(new OptimizeCssAssetsPlugin({
@@ -44,6 +46,10 @@ if (process.env.NODE_ENV == 'production') {
     canPrint: true
   }))
 }
+
+plugins.push(new DefinePlugin({
+  SERVICE_URL
+}))
 
 // Exportando configurações do webpack
 module.exports = {
