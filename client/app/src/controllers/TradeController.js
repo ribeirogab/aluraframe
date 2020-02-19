@@ -66,7 +66,7 @@ class TradeController {
     }
   }
 
-  @debounce(1000)
+  @debounce(300)
   async import(){
     try {
       const { TradeService } = await System.import('../domain/trades/TradeService.js')
@@ -104,9 +104,9 @@ class TradeController {
   }
 
   _resetForm(){
-    this._inputDate.value = '16/09/2000'
-    this._inputAmount.value = 7
-    this._inputValue.value = 5
+    this._inputDate.value = ''
+    this._inputAmount.value = 1
+    this._inputValue.value = 0.0
     this._inputDate.focus()
   }
 }
