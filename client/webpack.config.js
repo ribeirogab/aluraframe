@@ -37,7 +37,7 @@ plugins.push(new optimize.CommonsChunkPlugin({
 let SERVICE_URL = JSON.stringify('http://localhost:3000')
 // Verificando variável de ambiemte, para assim diferenciar o build de desenvolvimento do de produção
 if (process.env.NODE_ENV == 'production') {
-  SERVICE_URL = JSON.stringify('https://apitrades.herokuapp.com')
+  SERVICE_URL = JSON.stringify('https://apitouse.herokuapp.com/trades/')
   plugins.push(new optimize.ModuleConcatenationPlugin())
   plugins.push(new BabiliPlugin())
   plugins.push(new OptimizeCssAssetsPlugin({
