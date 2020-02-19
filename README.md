@@ -1,2 +1,2 @@
 # Cangaceiro JavaScript
-## Uma aventura no sertão da programação
+## Uma aventura no sertão da programação.
